@@ -76,12 +76,10 @@ public class AllUserActivity extends AppCompatActivity {
 
         adapter = new FirebaseRecyclerAdapter<User, UserViewHolder>(options) {
             @Override
-            protected void onBindViewHolder(@NonNull UserViewHolder holder, int position, @NonNull User model) {
+            protected void onBindViewHolder(@NonNull final UserViewHolder holder, int position, @NonNull final User model) {
                 holder.status.setText(model.getStatus());
                 holder.name.setText(model.getName());
 
-                final User finalModel = model;
-                final UserViewHolder finalHolder = holder;
                 Picasso.get().load(model.getThumbnail())
                         .placeholder(R.drawable.profile)
                         .networkPolicy(NetworkPolicy.OFFLINE)
@@ -94,7 +92,7 @@ public class AllUserActivity extends AppCompatActivity {
                             @Override
                             public void onError(Exception e) {
                                 //data couldn't be fetched offline
-                                Picasso.get().load(finalModel.getThumbnail()).placeholder(R.drawable.profile).into(finalHolder.circleImageView);
+                                Picasso.get().load(model.getThumbnail()).placeholder(R.drawable.profile).into(holder.circleImageView);
 
 
                             }

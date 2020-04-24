@@ -247,6 +247,7 @@ public class ProfileActivity extends AppCompatActivity {
 
                                     @Override
                                     public void onError(Exception e) {
+                                        customProgressBar.dismiss();
 
                                     }
                                 });
@@ -461,6 +462,8 @@ public class ProfileActivity extends AppCompatActivity {
 
                 queryMap.put("Friend_req/" + currentUserUid + "/" + otherUserUid, null);
                 queryMap.put("Friend_req/" + otherUserUid + "/" + currentUserUid, null);
+
+//                queryMap.put("FriendsNotification" + currentUserUid + "/" + otherUserUid + "/state","accepted");
 
                 rootReference.updateChildren(queryMap, new DatabaseReference.CompletionListener() {
                     @Override

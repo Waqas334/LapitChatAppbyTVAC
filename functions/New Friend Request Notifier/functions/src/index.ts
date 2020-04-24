@@ -12,6 +12,8 @@ exports.sendRequestNotification = functions.database.ref('/TVAC/Notification/{Ta
         //targetId is targetUserId whom you have sent a friend request
         const targetId = context.params.TargetUserId;
 
+        
+
         if (!snapshot.after.val()) {
             //This means that someone has deleted the notification node. So need to do nothing
             console.log("Data Deleted!");
