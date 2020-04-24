@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.androidbull.firebasechatapp.MyBaseActivity;
 import com.androidbull.firebasechatapp.R;
 import com.androidbull.firebasechatapp.util.CustomProgressBar;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -23,7 +24,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class StatusUpdateActivity extends AppCompatActivity {
+public class StatusUpdateActivity extends MyBaseActivity {
 
     private TextInputLayout mTilStatus;
     private Button mBtnSave;
@@ -66,6 +67,17 @@ public class StatusUpdateActivity extends AppCompatActivity {
         mBtnSave.setOnClickListener(saveClickListener);
 
 
+    }
+
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
     }
 
     private View.OnClickListener saveClickListener = new View.OnClickListener() {

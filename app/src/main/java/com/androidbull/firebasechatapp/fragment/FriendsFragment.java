@@ -1,6 +1,9 @@
 package com.androidbull.firebasechatapp.fragment;
 
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,9 +16,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.androidbull.firebasechatapp.R;
+import com.androidbull.firebasechatapp.activity.AllUserActivity;
+import com.androidbull.firebasechatapp.activity.ProfileActivity;
 import com.androidbull.firebasechatapp.model.User;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -102,17 +108,50 @@ public class FriendsFragment extends Fragment {
             @Override
             protected void onBindViewHolder(@NonNull final FriendsViewHolder holder, int position, @NonNull Date model) {
 
-                String friendId = getRef(position).getKey();
+                final String friendId = getRef(position).getKey();
                 FirebaseDatabase.getInstance().getReference().child("TVAC/Users/" + friendId).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         String name = dataSnapshot.child("name").getValue().toString();
                         String status = dataSnapshot.child("status").getValue().toString();
                         String thumbnail = dataSnapshot.child("thumbnail").getValue().toString();
+                        boolean online = dataSnapshot.child("online").getValue().toString().equals("true")?true:false;
+
+                        if(online){
+                            holder.mImageViewOnlineIndicator.setVisibility(View.VISIBLE);
+                        }else{
+                            holder.mImageViewOnlineIndicator.setVisibility(View.GONE);
+                        }
 
                         holder.mTvName.setText(name);
                         holder.mTvStatus.setText(status);
                         Picasso.get().load(thumbnail).placeholder(R.drawable.profile).into(holder.mCivProfile);
+                        holder.view.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                CharSequence options[] = new CharSequence[]{"Open Profile", "Send Message"};
+
+                                final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                                builder.setTitle("Choose option");
+                                builder.setItems(options, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        if(which==0){
+                                            //Open profile is clicked
+                                            //We need to start profile activity
+                                            Intent profileIntent = new Intent(getContext(), ProfileActivity.class);
+                                            profileIntent.putExtra("UID", friendId);
+                                            startActivity(profileIntent);
+                                        }else{
+                                            //User clicked send message
+                                        }
+                                    }
+                                });
+                                builder.show();
+
+                            }
+                        });
+
 
                     }
 
@@ -139,6 +178,7 @@ public class FriendsFragment extends Fragment {
         TextView mTvName;
         TextView mTvStatus;
         CircleImageView mCivProfile;
+        ImageView mImageViewOnlineIndicator;
 
 
         public FriendsViewHolder(@NonNull View itemView) {
@@ -147,7 +187,7 @@ public class FriendsFragment extends Fragment {
             mTvName = itemView.findViewById(R.id.user_tv_name);
             mTvStatus = itemView.findViewById(R.id.user_tv_status);
             mCivProfile = itemView.findViewById(R.id.user_civ_profile);
-
+            mImageViewOnlineIndicator = itemView.findViewById(R.id.user_iv_online_status);
         }
 
 

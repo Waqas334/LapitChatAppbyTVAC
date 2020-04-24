@@ -14,6 +14,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.androidbull.firebasechatapp.LapitChat;
+import com.androidbull.firebasechatapp.MyBaseActivity;
 import com.androidbull.firebasechatapp.R;
 import com.androidbull.firebasechatapp.adapter.SectionsPageAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -22,11 +24,12 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GetTokenResult;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.messaging.FirebaseMessaging;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends MyBaseActivity {
 
-    private static final String TAG = "MainActivity";
+    public static final String TAG = "MainActivity";
 
     private FirebaseAuth firebaseAuth;
     private Toolbar toolbar;
@@ -62,6 +65,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
+
+        Log.i(TAG, "onStart: of MainActivity");
+
         // Check if User is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         if (currentUser == null) {
@@ -69,11 +75,37 @@ public class MainActivity extends AppCompatActivity {
             Intent registerActivityIntent = new Intent(MainActivity.this, WelcomeActivity.class);
             startActivity(registerActivityIntent);
             finish();
-
+        } else {
+            //Someone is logged in, we need to set it's status to online
+//            setOnline(true);
 
         }
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.i(TAG, "onStop: of MainActivity");
+
+//        setOnline(false);
+    }
+/*
+    public static void setOnline(boolean isOnline) {
+        //This function will set the state of online node to true or false accordingly
+        FirebaseDatabase.getInstance().getReference()
+                .child("TVAC/Users/" + FirebaseAuth.getInstance().getUid())
+                .child("online")
+                .setValue(isOnline)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if(task.isSuccessful()){
+                            Log.i(TAG, "onComplete: online status update to online" );
+                        }
+                    }
+                });
+    }
+*/
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);

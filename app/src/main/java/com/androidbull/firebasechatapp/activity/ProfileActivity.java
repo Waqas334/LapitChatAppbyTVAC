@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.androidbull.firebasechatapp.MyBaseActivity;
 import com.androidbull.firebasechatapp.R;
 import com.androidbull.firebasechatapp.util.CustomProgressBar;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -33,7 +34,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ProfileActivity extends AppCompatActivity {
+public class ProfileActivity extends MyBaseActivity {
 
     public static final String NOT_FRIENDS = "not_friends";
     public static final String REQUEST_SENT = "request_sent";
@@ -61,6 +62,7 @@ public class ProfileActivity extends AppCompatActivity {
     private DatabaseReference notificationDatabaseReference;
 
     private DatabaseReference rootReference;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -509,6 +511,13 @@ public class ProfileActivity extends AppCompatActivity {
         }
     };
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
 
-
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
 }

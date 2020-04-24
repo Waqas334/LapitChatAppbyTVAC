@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.androidbull.firebasechatapp.MyBaseActivity;
 import com.androidbull.firebasechatapp.R;
 import com.androidbull.firebasechatapp.util.CustomProgressBar;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -40,7 +41,7 @@ import java.io.ByteArrayOutputStream;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class SettingsActivity extends AppCompatActivity {
+public class SettingsActivity extends MyBaseActivity {
     private static final String TAG = "SettingsActivity";
 
     private final int GALLERY_REQUEST_CODE = 001;
@@ -139,6 +140,19 @@ public class SettingsActivity extends AppCompatActivity {
 
         }
     };
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+//        MainActivity.setOnline(true);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+//        MainActivity.setOnline(false);
+    }
 
     private View.OnClickListener profileChangeClickListener = new View.OnClickListener() {
         @Override

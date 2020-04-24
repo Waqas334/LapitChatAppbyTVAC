@@ -4,14 +4,24 @@ public class User {
     private String name;
     private String status;
     private String thumbnail;
+    private boolean isOnline;
 
     public User() {
     }
 
-    public User(String name, String status, String thumbnail) {
+    public User(String name, String status, String thumbnail,boolean isOnline) {
         this.name = name;
         this.status = status;
         this.thumbnail = thumbnail;
+        this.isOnline = isOnline;
+    }
+
+    public boolean isOnline() {
+        return isOnline;
+    }
+
+    public void setOnline(boolean online) {
+        isOnline = online;
     }
 
     public String getThumbnail() {

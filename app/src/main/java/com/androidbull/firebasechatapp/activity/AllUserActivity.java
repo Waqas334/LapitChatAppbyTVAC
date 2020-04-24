@@ -13,13 +13,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.androidbull.firebasechatapp.MyBaseActivity;
 import com.androidbull.firebasechatapp.R;
 import com.androidbull.firebasechatapp.model.User;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.firebase.ui.database.SnapshotParser;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -29,7 +32,7 @@ import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class AllUserActivity extends AppCompatActivity {
+public class AllUserActivity extends MyBaseActivity {
 
     private Toolbar mToolbar;
     private RecyclerView mRecyclerView;
@@ -69,6 +72,7 @@ public class AllUserActivity extends AppCompatActivity {
                 user.setName(snapshot.child("name").getValue().toString());
                 user.setStatus(snapshot.child("status").getValue().toString());
                 user.setThumbnail(snapshot.child("thumbnail").getValue().toString());
+                user.setOnline(snapshot.child("online").getValue().toString().equals("true")?true:false);
                 return user;
             }
         }).build();
@@ -79,6 +83,11 @@ public class AllUserActivity extends AppCompatActivity {
             protected void onBindViewHolder(@NonNull final UserViewHolder holder, int position, @NonNull final User model) {
                 holder.status.setText(model.getStatus());
                 holder.name.setText(model.getName());
+                if(model.isOnline()){
+                    holder.onlineSymbol.setVisibility(View.VISIBLE);
+                }else{
+                    holder.onlineSymbol.setVisibility(View.GONE);
+                }
 
                 Picasso.get().load(model.getThumbnail())
                         .placeholder(R.drawable.profile)
@@ -126,12 +135,18 @@ public class AllUserActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         adapter.startListening();
+//        MainActivity.setOnline(true);
+        Log.i(MainActivity.TAG, "onStart: of AllUserActivity");
     }
 
     @Override
     protected void onStop() {
         super.onStop();
+        Log.i(MainActivity.TAG, "onStop: of AllUserActivity");
         adapter.stopListening();
+//        MainActivity.setOnline(false);
+
+
     }
 
     public static class UserViewHolder extends RecyclerView.ViewHolder {
@@ -139,6 +154,7 @@ public class AllUserActivity extends AppCompatActivity {
         TextView name;
         TextView status;
         CircleImageView circleImageView;
+        ImageView onlineSymbol;
 
         public UserViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -147,6 +163,7 @@ public class AllUserActivity extends AppCompatActivity {
             name = itemView.findViewById(R.id.user_tv_name);
             status = itemView.findViewById(R.id.user_tv_status);
             circleImageView = itemView.findViewById(R.id.user_civ_profile);
+            onlineSymbol = itemView.findViewById(R.id.user_iv_online_status);
 
         }
     }
