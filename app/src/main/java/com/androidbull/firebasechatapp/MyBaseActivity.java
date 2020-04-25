@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 
 public class MyBaseActivity extends AppCompatActivity {
 
@@ -21,10 +22,14 @@ public class MyBaseActivity extends AppCompatActivity {
         super.onStop();
         onStopCount++;
         Log.i(TAG, "onStop: count: " + onStopCount);
-        if (onStopCount >= onStartCount)
-            FirebaseDatabase.getInstance().getReference()
-                    .child("TVAC/Users/" + FirebaseAuth.getInstance().getUid())
-                    .child("online").setValue(false);
+        //If user is online then we gonna save the online value as true, if not than time stemp of when he went offline
+
+        if (onStopCount >= onStartCount) {
+            if (FirebaseAuth.getInstance().getCurrentUser() != null)
+                FirebaseDatabase.getInstance().getReference()
+                        .child("TVAC/Users/" + FirebaseAuth.getInstance().getUid())
+                        .child("online").setValue(ServerValue.TIMESTAMP);
+        }
     }
 
     @Override
@@ -32,8 +37,9 @@ public class MyBaseActivity extends AppCompatActivity {
         super.onStart();
         onStartCount++;
         Log.i(TAG, "onStart: count: " + onStartCount);
-        FirebaseDatabase.getInstance().getReference()
-                .child("TVAC/Users/" + FirebaseAuth.getInstance().getUid())
-                .child("online").setValue(true);
+        if (FirebaseAuth.getInstance().getCurrentUser() != null)
+            FirebaseDatabase.getInstance().getReference()
+                    .child("TVAC/Users/" + FirebaseAuth.getInstance().getUid())
+                    .child("online").setValue("true");
     }
 }

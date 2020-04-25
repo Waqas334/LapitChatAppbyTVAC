@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import com.androidbull.firebasechatapp.R;
 import com.androidbull.firebasechatapp.activity.AllUserActivity;
+import com.androidbull.firebasechatapp.activity.ChatActivity;
 import com.androidbull.firebasechatapp.activity.ProfileActivity;
 import com.androidbull.firebasechatapp.model.User;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -32,6 +33,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -112,9 +115,9 @@ public class FriendsFragment extends Fragment {
                 FirebaseDatabase.getInstance().getReference().child("TVAC/Users/" + friendId).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        String name = dataSnapshot.child("name").getValue().toString();
+                        final String name = dataSnapshot.child("name").getValue().toString();
                         String status = dataSnapshot.child("status").getValue().toString();
-                        String thumbnail = dataSnapshot.child("thumbnail").getValue().toString();
+                        final String thumbnail = dataSnapshot.child("thumbnail").getValue().toString();
                         boolean online = dataSnapshot.child("online").getValue().toString().equals("true")?true:false;
 
                         if(online){
@@ -125,7 +128,21 @@ public class FriendsFragment extends Fragment {
 
                         holder.mTvName.setText(name);
                         holder.mTvStatus.setText(status);
-                        Picasso.get().load(thumbnail).placeholder(R.drawable.profile).into(holder.mCivProfile);
+
+
+
+                        Picasso.get().load(thumbnail).placeholder(R.drawable.profile).networkPolicy(NetworkPolicy.OFFLINE).into(holder.mCivProfile, new Callback() {
+                            @Override
+                            public void onSuccess() {
+                                //Image is loaded from cache
+                            }
+
+                            @Override
+                            public void onError(Exception e) {
+                                //profile image couldn't be loaded from cache
+                                Picasso.get().load(thumbnail).placeholder(R.drawable.profile).into(holder.mCivProfile);
+                            }
+                        });
                         holder.view.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -144,6 +161,10 @@ public class FriendsFragment extends Fragment {
                                             startActivity(profileIntent);
                                         }else{
                                             //User clicked send message
+                                            Intent profileIntent = new Intent(getContext(), ChatActivity.class);
+                                            profileIntent.putExtra("UID", friendId);
+                                            profileIntent.putExtra("friend_name",name);
+                                            startActivity(profileIntent);
                                         }
                                     }
                                 });

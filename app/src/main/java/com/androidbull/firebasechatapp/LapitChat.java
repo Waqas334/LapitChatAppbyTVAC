@@ -5,6 +5,7 @@ import android.app.Application;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 import com.squareup.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
 
@@ -31,7 +32,7 @@ private FirebaseAuth firebaseAuth;
         if(firebaseAuth.getCurrentUser()!=null){
             currentUserReference = FirebaseDatabase.getInstance().getReference().child("TVAC/Users/" + firebaseAuth.getUid());
 
-            currentUserReference.child("online").onDisconnect().setValue("false");
+            currentUserReference.child("online").onDisconnect().setValue(ServerValue.TIMESTAMP);
 
         }
 
