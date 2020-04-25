@@ -102,6 +102,7 @@ public class RegisterActivity extends AppCompatActivity {
                                     data.put("status", "Hi there!");
                                     data.put("thumbnail", "default");
                                     data.put("tokenId", tokenId);
+                                    data.put("online","true");
 
 
                                     databaseReference.setValue(data).addOnCompleteListener(new OnCompleteListener<Void>() {

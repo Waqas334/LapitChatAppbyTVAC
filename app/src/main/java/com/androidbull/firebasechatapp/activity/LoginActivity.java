@@ -1,6 +1,7 @@
 package com.androidbull.firebasechatapp.activity;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -22,10 +23,14 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GetTokenResult;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
@@ -87,6 +92,35 @@ public class LoginActivity extends AppCompatActivity {
                                     //We got the token
                                     //Writing token to RTDB
                                     String token = task.getResult().getToken();
+                                    String loginUserId = firebaseAuth.getUid();
+
+                                    Map userMap = new HashMap();
+                                    userMap.put("tokenId", token);
+                                    userMap.put("online", "true");
+
+                                    userDatabaseReference.child(loginUserId).updateChildren(userMap, new DatabaseReference.CompletionListener() {
+                                        @Override
+                                        public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
+
+                                            if (databaseError != null) {
+                                                //Something went wrong
+                                                Log.e(TAG, "onComplete: loginActivity " + databaseError.getDetails());
+                                                customProgressBar.failed("Sorry");
+                                            } else {
+                                                customProgressBar.done("Completed");
+                                                customProgressBar.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                                    @Override
+                                                    public void onDismiss(DialogInterface dialog) {
+                                                        Intent mainActivityIntent = new Intent(LoginActivity.this, MainActivity.class);
+                                                        mainActivityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                        startActivity(mainActivityIntent);
+                                                        LoginActivity.this.finish();
+                                                    }
+                                                });
+                                            }
+                                        }
+                                    });
+/*
 
                                     userDatabaseReference.child(firebaseAuth.getUid()).child("tokenId").setValue(token).addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
@@ -99,10 +133,7 @@ public class LoginActivity extends AppCompatActivity {
                                                     @Override
                                                     public void onDismiss(DialogInterface dialog) {
 
-                                                        Intent mainActivityIntent = new Intent(LoginActivity.this, MainActivity.class);
-                                                        mainActivityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                                        startActivity(mainActivityIntent);
-                                                        LoginActivity.this.finish();
+
                                                     }
                                                 });
                                             } else {
@@ -111,6 +142,7 @@ public class LoginActivity extends AppCompatActivity {
                                             }
                                         }
                                     });
+*/
 
                                 } else {
                                     Log.e(TAG, "onComplete: couldn't get the token");

@@ -3,40 +3,40 @@
     android:id="@+id/rl_root_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#35A8A7A7">
+    android:background="@android:color/transparent">
 
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:animateLayoutChanges="true"
         android:background="@drawable/progress_bar_bg"
         android:elevation="30dp"
-        android:animateLayoutChanges="true"
         android:padding="40dp">
 
 
         <ProgressBar
             android:id="@+id/progress_bar"
-            android:backgroundTint="@android:color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            android:backgroundTint="@android:color/white" />
 
 
         <ImageView
+            android:id="@+id/iv_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/iv_icon"
             android:layout_alignStart="@+id/progress_bar"
             android:layout_alignLeft="@+id/progress_bar"
-            android:layout_centerHorizontal="true"
             android:layout_alignTop="@+id/progress_bar"
-            android:tint="@color/colorAccent"
             android:layout_alignEnd="@+id/progress_bar"
             android:layout_alignRight="@+id/progress_bar"
             android:layout_alignBottom="@id/progress_bar"
-            android:src="@drawable/ic_done_white_24dp" />
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/ic_done_white_24dp"
+            android:tint="@android:color/white" />
 
         <TextView
             android:id="@+id/tv_message"

@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.androidbull.firebasechatapp.fragment.ChatsFragment;
+import com.androidbull.firebasechatapp.fragment.ConversationsFragment;
 import com.androidbull.firebasechatapp.fragment.FriendsFragment;
 import com.androidbull.firebasechatapp.fragment.RequestsFragment;
 
@@ -23,7 +23,7 @@ public class SectionsPageAdapter extends FragmentPagerAdapter {
             case 0:
                 return new RequestsFragment();
             case 1:
-                return new ChatsFragment();
+                return new ConversationsFragment();
             case 2:
                 return new FriendsFragment();
             default:
