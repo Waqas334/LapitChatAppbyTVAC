@@ -10,18 +10,19 @@
         <item name="android:buttonStyle">@style/My.Button</item>
         <item name="android:windowBackground">@color/windownBackground</item>
 
-<!--        This one is for menu text color-->
+
+        <!--        This one is for menu text color-->
         <item name="android:actionMenuTextColor">@color/menuTextColor</item>
 
-<!--        This one is for menu background color-->
+        <!--        This one is for menu background color-->
         <item name="android:itemBackground">@color/menuBackgroundColor</item>
 
     </style>
 
+
     <style name="MyDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="android:background">@color/dialogBackgroundColor</item>
         <item name="android:colorAccent">@color/dialogTextColor</item>
-
     </style>
 
     <style name="My.Button" parent="@style/Widget.AppCompat.Button">

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#200E42</color>
+    <color name="colorPrimaryDark">#0D0129</color>
+    <color name="colorAccent">#E73900</color>
+
+    <color name="textColorInvert">#FFF</color>
+    <color name="textColorInvertSecondary">#BBB</color>
+
+    <color name="textColor">#DDD</color>
+
+    <color name="secondaryTextColor">#99FFFFFF</color>
+    <color name="grayBackground">#222222</color>
+    <color name="windownBackground">#333</color>
+    <color name="menuTextColor">#AAA</color>
+    <color name="menuBackgroundColor">#333</color>
+
+    <color name="dialogTextColor">#CCC</color>
+    <color name="myMessageBackgroundColor">#3F3F3F</color>
+    <color name="myMessageTextColor">#D3D3D3</color>
+
+    <color name="chatBackgroundColor">#222</color>
+    <color name="sentBackgroundColor">#888</color>
+    <color name="sentTextColor">#EEE</color>
+    <color name="receivedBackgroundColor">@color/colorPrimary</color>
+    <color name="receivedTextColor">#CCC</color>
+
+
+
+
+</resources>

@@ -4,7 +4,28 @@
     <color name="colorPrimaryDark">#512da7</color>
     <color name="colorAccent">#ff5521</color>
 
-    <color name="faintWhite">#99FFFFFF</color>
+    <color name="secondaryTextColor">#99FFFFFF</color>
     <color name="grayBackground">#222222</color>
+
+    <color name="textColor">#FFF</color>
+
+    <color name="textColorInvert">#000</color>
+    <color name="textColorInvertSecondary">#333</color>
+
+    <color name="windownBackground">#FFF</color>
+    <color name="menuTextColor">#FFF</color>
+
+    <color name="menuBackgroundColor">#aaa</color>
+    <color name="dialogBackgroundColor">#333</color>
+    <color name="dialogTextColor">#FFF</color>
+    <color name="myMessageBackgroundColor">#FFF</color>
+    <color name="myMessageTextColor">#FFF</color>
+
+    <color name="chatBackgroundColor">#777</color>
+    <color name="sentBackgroundColor">#FFF</color>
+    <color name="sentTextColor">#000</color>
+
+    <color name="receivedBackgroundColor">@color/colorPrimary</color>
+    <color name="receivedTextColor">#FFF</color>
 
 </resources>

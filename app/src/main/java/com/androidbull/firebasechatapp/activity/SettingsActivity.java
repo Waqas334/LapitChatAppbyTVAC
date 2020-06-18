@@ -111,7 +111,7 @@ public class SettingsActivity extends MyBaseActivity {
 
                         }
 
-                        @Override
+                         @Override
                         public void onError(Exception e) {
                             //Image can't fetch offline, so lets go online
                             Log.i(TAG, "onError: couldn't fetch the image offline");
@@ -195,6 +195,7 @@ public class SettingsActivity extends MyBaseActivity {
             if (resultCode == RESULT_OK) {
                 customProgressBar.show();
                 Uri resultUri = result.getUri();
+                Log.i(TAG, "onActivityResult: URI: " + resultUri.toString());
                 mCivProfileImage.setImageURI(resultUri);
                 Bitmap bitmap = ((BitmapDrawable) mCivProfileImage.getDrawable()).getBitmap();
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();

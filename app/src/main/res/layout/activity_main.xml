@@ -22,8 +22,8 @@
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/main_tab"
             android:layout_width="match_parent"
-            app:tabSelectedTextColor="@android:color/white"
-            app:tabTextColor="@color/faintWhite"
+            app:tabSelectedTextColor="@color/textColor"
+            app:tabTextColor="@color/secondaryTextColor"
             android:layout_height="wrap_content" />
 
     </com.google.android.material.appbar.AppBarLayout>

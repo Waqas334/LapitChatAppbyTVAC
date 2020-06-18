@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/darker_gray"
+    android:background="@color/chatBackgroundColor"
     tools:context=".activity.ChatActivity">
 
     <include
@@ -15,40 +15,65 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <View
+    <RelativeLayout
         android:id="@+id/chat_view_white"
         android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:background="@android:color/white"
+        android:background="@color/textColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent">
 
-    <ImageView
-        android:id="@+id/chat_iv_add"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginLeft="16dp"
-        android:src="@drawable/ic_add"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="@id/chat_view_white" />
 
-    <ImageView
-        android:id="@+id/chat_iv_send"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="16dp"
-        android:src="@drawable/ic_send"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/chat_view_white" />
+        <ImageView
+            android:id="@+id/chat_iv_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:src="@drawable/ic_add"
+            android:layout_centerVertical="true"
+            android:tint="@color/chatBackgroundColor"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent" />
 
-    <!--    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="0dp"-->
-    <!--        android:id="@+id/chat_swipe_to_refresh"-->
-    <!--        >-->
+        <ImageView
+            android:id="@+id/chat_iv_send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="16dp"
+            android:src="@drawable/ic_send"
+            android:tint="@color/chatBackgroundColor"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <!--    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout-->
+        <!--        android:layout_width="match_parent"-->
+        <!--        android:layout_height="0dp"-->
+        <!--        android:id="@+id/chat_swipe_to_refresh"-->
+        <!--        >-->
+
+
+        <EditText
+            android:id="@+id/chat_et_message"
+            android:layout_width="match_parent"
+            android:layout_toLeftOf="@+id/chat_iv_send"
+            android:layout_toRightOf="@+id/chat_iv_add"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:hint="Text..."
+            android:textColor="@color/textColorInvert"
+            android:textColorHint="@color/chatBackgroundColor"
+            android:textSize="20sp"
+            />
+
+
+    </RelativeLayout>
+
+    <!--    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>-->
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/chat_rv_messages"
@@ -58,22 +83,5 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/chat_app_bar" />
-
-    <!--    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>-->
-
-
-    <EditText
-        android:id="@+id/chat_et_message"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:hint="Text..."
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@id/chat_view_white"
-        app:layout_constraintLeft_toRightOf="@+id/chat_iv_add"
-        app:layout_constraintRight_toLeftOf="@+id/chat_iv_send"
-        app:layout_constraintTop_toTopOf="@id/chat_view_white" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

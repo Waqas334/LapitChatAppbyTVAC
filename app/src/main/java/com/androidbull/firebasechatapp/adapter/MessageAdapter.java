@@ -3,6 +3,7 @@ package com.androidbull.firebasechatapp.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -66,8 +67,9 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
         if (message.getFrom() != null) {
             if (message.getFrom().equals(currentUserId)) {
                 //It's we who sent the message
+
                 holder.mTvMessage.setBackgroundResource(R.drawable.message_sent_background);
-                holder.mTvMessage.setTextColor(Color.BLACK);
+                holder.mTvMessage.setTextColor(holder.view.getContext().getColor(R.color.sentTextColor));
 
                 RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) holder.mTvMessage.getLayoutParams();
                 params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, 1);
@@ -109,7 +111,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
                 holder.mCivProfile.setVisibility(View.VISIBLE);
                 holder.mTvMessage.setBackgroundResource(R.drawable.message_received_background);
-                holder.mTvMessage.setTextColor(Color.WHITE);
+                holder.mTvMessage.setTextColor(holder.view.getContext().getColor(R.color.receivedTextColor));
                 RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) holder.mTvMessage.getLayoutParams();
                 params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, 0);
                 holder.mTvMessage.setLayoutParams(params);

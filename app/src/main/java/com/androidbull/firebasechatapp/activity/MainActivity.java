@@ -2,6 +2,7 @@ package com.androidbull.firebasechatapp.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
@@ -45,9 +46,11 @@ public class MainActivity extends MyBaseActivity {
         FirebaseMessaging.getInstance().subscribeToTopic("request");
 
 
+
         firebaseAuth = FirebaseAuth.getInstance();
 
         toolbar = findViewById(R.id.main_app_bar);
+        toolbar.setTitleTextColor(getResources().getColor(R.color.textColor));
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Lapit Chat App");
 
@@ -89,23 +92,24 @@ public class MainActivity extends MyBaseActivity {
 
 //        setOnline(false);
     }
-/*
-    public static void setOnline(boolean isOnline) {
-        //This function will set the state of online node to true or false accordingly
-        FirebaseDatabase.getInstance().getReference()
-                .child("TVAC/Users/" + FirebaseAuth.getInstance().getUid())
-                .child("online")
-                .setValue(isOnline)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful()){
-                            Log.i(TAG, "onComplete: online status update to online" );
+
+    /*
+        public static void setOnline(boolean isOnline) {
+            //This function will set the state of online node to true or false accordingly
+            FirebaseDatabase.getInstance().getReference()
+                    .child("TVAC/Users/" + FirebaseAuth.getInstance().getUid())
+                    .child("online")
+                    .setValue(isOnline)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if(task.isSuccessful()){
+                                Log.i(TAG, "onComplete: online status update to online" );
+                            }
                         }
-                    }
-                });
-    }
-*/
+                    });
+        }
+    */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
@@ -131,5 +135,14 @@ public class MainActivity extends MyBaseActivity {
         }
 
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (AppCompatDelegate.getDefaultNightMode() != AppCompatDelegate.MODE_NIGHT_YES)
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        else
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+//        super.onBackPressed();
     }
 }

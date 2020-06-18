@@ -28,7 +28,7 @@
             android:layout_alignParentRight="true"
             android:background="@drawable/message_received_background"
             android:text="This is me waqas"
-            android:textColor="@android:color/white" />
+            android:textColor="@color/textColor" />
     </RelativeLayout>
 
     <!--    <androidx.constraintlayout.widget.Guideline-->
